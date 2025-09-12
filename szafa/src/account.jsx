@@ -5,8 +5,9 @@ import "./account.css";
 import createIkona from './assets/CreateIkona.png'
 import clothesIkona from './assets/UbraniaIkona.png'
 import accountIkona from './assets/UserLogo.png'
+import forumIkona from './assets/ForumIkona.png'
 
-export default function Account() {
+export default function Wardrobe() {
   return (
     <div>
       {/* Pasek menu */}
@@ -21,7 +22,7 @@ export default function Account() {
         </div>
 
         <div className="nav-right">
-          <Link to="/forum">Forum</Link>
+          <Link to="/forum"><img src={forumIkona} alt="Ikona forum" className="forum" /></Link>
           <Link to="/account"><img src={accountIkona} alt="Ikona user" className="user" /></Link>
         </div>
       </header>
