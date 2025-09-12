@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logoMartini from "./assets/logoMartini.png";
-import "./Wardrobe.css"; 
+import "./account.css"; 
 import createIkona from './assets/CreateIkona.png'
 import clothesIkona from './assets/UbraniaIkona.png'
 import accountIkona from './assets/UserLogo.png'
 
-export default function Wardrobe() {
+export default function Account() {
   return (
     <div>
       {/* Pasek menu */}
@@ -27,7 +27,7 @@ export default function Wardrobe() {
       </header>
 
       {/* Zawartość strony */}
-      <h1>Twoja szafa 👕👖👗</h1>
+      <h1>Twoje konto 👕👖👗</h1>
       <p>Witaj w Wardrobe!</p>
     </div>
   );
