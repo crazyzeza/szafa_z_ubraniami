@@ -30,6 +30,17 @@ export default function Wardrobe() {
       {/* Zawartość strony */}
       <h1>Twoja szafa 👕👖👗</h1>
       <p>Witaj w Wardrobe!</p>
+      <div className="wardrobe-grid">
+      <div className="wardrobe-card"> All</div>
+        <div className="wardrobe-card">Tops</div>
+        <div className="wardrobe-card">T-Shirts</div>
+        <div className="wardrobe-card">Bottoms</div>
+        <div className="wardrobe-card">Shoes</div>
+        <div className="wardrobe-card">Others</div>
+      </div>
     </div>
+    
+
+    
   );
 }

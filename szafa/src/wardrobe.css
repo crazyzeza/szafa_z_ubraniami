@@ -58,3 +58,33 @@
     }
   }
   
+  .wardrobe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    background: linear-gradient(90deg, #dad6d8, #888888);
+  }
+  
+  .wardrobe-card {
+    background: url(assets/wall.jpg);
+    background-position: 20% 30%;
+    border: 2px solid #ff0055;
+    border-radius: 12px;
+    text-align: center;
+    padding: 30px 15px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px black;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  
+  .wardrobe-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 10px #ff0055, 0 0 20px #00ff0d;
+  }
+  
