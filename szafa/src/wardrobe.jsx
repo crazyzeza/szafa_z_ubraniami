@@ -10,7 +10,13 @@ import forumIkona from "./assets/ForumIkona.png";
 import tshirtImg from "./assets/tshirts/tshirts1.png";
 import hoodieImg from "./assets/tshirts/tshirts2.png";
 import jeansImg from "./assets/bottoms/bottoms0.png";
-import shoesImg from "./assets/others/others0.png";
+import shoesImg from "./assets/shoes/shoes0.png";
+import shoesImg1 from "./assets/shoes/shoes1.png";
+import shoesImg2 from "./assets/shoes/shoes2.png";
+import shoesImg3 from "./assets/shoes/shoes3.png";
+import shoesImg4 from "./assets/shoes/shoes4.png";
+import shoesImg5 from "./assets/shoes/shoes5.png";
+import shoesImg6 from "./assets/shoes/shoes6.png";
 import beltImg from "./assets/others/others1.png"; 
 
 export default function Wardrobe() {
@@ -38,14 +44,14 @@ export default function Wardrobe() {
       category: "Bottoms",
       img: jeansImg,
       name: "Adidas wannabe",
-      desc: "Kolor: czarny • Pogoda: uniwersalne • Styl: street",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
     },
     {
       id: 4,
       category: "Shoes",
       img: shoesImg,
-      name: "Białe sneakersy",
-      desc: "Kolor: biały • Pogoda: wiosna/lato • Styl: sportowy",
+      name:"Bagi codded :*",
+      desc: "Kolor: panterka • Pogoda: każda • Styl: bagi",
     },
     {
       id: 5,
@@ -53,6 +59,43 @@ export default function Wardrobe() {
       img: beltImg,
       name: "Swag pasek",
       desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 6,
+      category: "Shoes",
+      img: shoesImg1,
+      name: "Fancy adidaski",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: sportowy",
+    },{
+      id: 7,
+      category: "Shoes",
+      img: shoesImg2,
+      name: "Białe sneakersy",
+      desc: "Kolor: biały • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 8,
+      category: "Shoes",
+      img: shoesImg3,
+      name: "brązowe sneakersy",
+      desc: "Kolor: brązowe • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 9,
+      category: "Shoes",
+      img: shoesImg5,
+      name: "Dior z kakobuj",
+      desc: "Kolor: biały, niebieskie • Pogoda: wiosna/lato • Styl: rich bitch",
+    },{
+      id: 10,
+      category: "Shoes",
+      img: shoesImg4,
+      name: "Lustro",
+      desc: "Kolor: biały • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 11,
+      category: "Shoes",
+      img: shoesImg6,
+      name: "Brazil sneakersy",
+      desc: "Kolor: zielony, zolty • Pogoda: wiosna/lato • Styl: sportowy",
     },
   ];
 
