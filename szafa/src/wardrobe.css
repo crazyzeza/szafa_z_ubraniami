@@ -81,6 +81,7 @@
     text-shadow: 1px 1px 4px black;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+    max-width: 200px;
   }
   
   .wardrobe-card:hover {

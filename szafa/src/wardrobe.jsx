@@ -8,7 +8,11 @@ import accountIkona from "./assets/UserLogo.png";
 import forumIkona from "./assets/ForumIkona.png";
 
 import tshirtImg from "./assets/tshirts/tshirts1.png";
-import hoodieImg from "./assets/tshirts/tshirts2.png";
+import tshirtImg1 from "./assets/tshirts/tshirts0.png";
+import tshirtImg2 from "./assets/tshirts/tshirts2.png";
+import tshirtImg3 from "./assets/tshirts/tshirts3.png";
+import tshirtImg4 from "./assets/tshirts/tshirts4.png";
+import tshirtImg5 from "./assets/tshirts/tshirts5.png";
 import jeansImg from "./assets/bottoms/bottoms0.png";
 import shoesImg from "./assets/shoes/shoes0.png";
 import shoesImg1 from "./assets/shoes/shoes1.png";
@@ -17,7 +21,17 @@ import shoesImg3 from "./assets/shoes/shoes3.png";
 import shoesImg4 from "./assets/shoes/shoes4.png";
 import shoesImg5 from "./assets/shoes/shoes5.png";
 import shoesImg6 from "./assets/shoes/shoes6.png";
+import shoesImg7 from "./assets/shoes/shoes7.png";
+import shoesImg8 from "./assets/shoes/shoes8.png";
+import shoesImg9 from "./assets/shoes/shoes9.png";
+import shoesImg10 from "./assets/shoes/shoes10.png";
+import shoesImg11 from "./assets/shoes/shoes11.png";
 import beltImg from "./assets/others/others1.png"; 
+import topsImg from "./assets/tops/tops0.png";
+import topsImg1 from "./assets/tops/tops1.png";
+import topsImg2 from "./assets/tops/tops2.png";
+import topsImg3 from "./assets/tops/tops3.png";
+import topsImg4 from "./assets/tops/tops4.png";
 
 export default function Wardrobe() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -28,14 +42,14 @@ export default function Wardrobe() {
     {
       id: 1,
       category: "T-Shirts",
-      img: hoodieImg,
+      img: tshirtImg,
       name: "Mężobijka",
       desc: "Kolor: żółty • Pogoda: lato • Styl: street",
     },
     {
       id: 2,
       category: "Tops",
-      img: tshirtImg,
+      img: topsImg,
       name: "Top na ramiączka",
       desc: "Kolor: czarny • Pogoda: lato • Styl: grunge",
     },
@@ -96,7 +110,92 @@ export default function Wardrobe() {
       img: shoesImg6,
       name: "Brazil sneakersy",
       desc: "Kolor: zielony, zolty • Pogoda: wiosna/lato • Styl: sportowy",
-    },
+    },{
+      id: 12,
+      category: "Shoes",
+      img: shoesImg7,
+      name: "Najacze",
+      desc: "Kolor: różowy • Pogoda: każda • Styl: sportowy",
+    },{
+      id: 13,
+      category: "Shoes",
+      img: shoesImg8,
+      name: "'I`m not like other girls'",
+      desc: "Kolor: czarne • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 14,
+      category: "Shoes",
+      img: shoesImg9,
+      name: "Buty najwiekszej sigmy",
+      desc: "Kolor: żółty • Pogoda: każda • Styl: sigmowy",
+    },{
+      id: 15,
+      category: "Shoes",
+      img: shoesImg10,
+      name: "Polska gurom",
+      desc: "Kolor: biały, czerwony • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 16,
+      category: "Shoes",
+      img: shoesImg11,
+      name: "Tung tung tung sahur",
+      desc: "Kolor: fioletowy • Pogoda: zima • Styl: classy",
+    },{
+      id: 17,
+      category: "T-Shirts",
+      img: tshirtImg1,
+      name: "'I`m not like other girls'",
+      desc: "Kolor: czarne • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 18,
+      category: "T-Shirts",
+      img: tshirtImg2,
+      name: "Buty najwiekszej sigmy",
+      desc: "Kolor: żółty • Pogoda: każda • Styl: sigmowy",
+    },{
+      id: 19,
+      category: "T-Shirts",
+      img: tshirtImg3,
+      name: "Polska gurom",
+      desc: "Kolor: biały, czerwony • Pogoda: wiosna/lato • Styl: sportowy",
+    },{
+      id: 20,
+      category: "T-Shirts",
+      img: tshirtImg4,
+      name: "Tung tung tung sahur",
+      desc: "Kolor: fioletowy • Pogoda: zima • Styl: classy",
+    },{
+      id: 21,
+      category: "T-Shirts",
+      img: tshirtImg5,
+      name: "Tung tung tung sahur",
+      desc: "Kolor: fioletowy • Pogoda: zima • Styl: classy",
+    },{
+      id: 22,
+      category: "Tops",
+      img: topsImg1,
+      name: "Top na ramiączka",
+      desc: "Kolor: czarny • Pogoda: lato • Styl: grunge",
+    },{
+      id: 23,
+      category: "Tops",
+      img: topsImg2,
+      name: "Top na ramiączka",
+      desc: "Kolor: czarny • Pogoda: lato • Styl: grunge",
+    },{
+      id: 24,
+      category: "Tops",
+      img: topsImg3,
+      name: "Top na ramiączka",
+      desc: "Kolor: czarny • Pogoda: lato • Styl: grunge",
+    },{
+      id: 25,
+      category: "Tops",
+      img: topsImg4,
+      name: "Top na ramiączka",
+      desc: "Kolor: czarny • Pogoda: lato • Styl: grunge",
+    }
+    
   ];
 
   // filtrowanie
