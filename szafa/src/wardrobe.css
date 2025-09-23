@@ -82,6 +82,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     max-width: 200px;
+    
   }
   
   .wardrobe-card:hover {
@@ -147,6 +148,8 @@
     color: #fff;
     box-shadow: 0 0 20px #ff0055, 0 0 30px #00ff0d;
     animation: scaleUp 0.3s ease-in-out;
+    
+    
   }
   
   .modal-img {
