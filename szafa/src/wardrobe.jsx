@@ -13,7 +13,6 @@ import tshirtImg2 from "./assets/tshirts/tshirts2.png";
 import tshirtImg3 from "./assets/tshirts/tshirts3.png";
 import tshirtImg4 from "./assets/tshirts/tshirts4.png";
 import tshirtImg5 from "./assets/tshirts/tshirts5.png";
-import jeansImg from "./assets/bottoms/bottoms0.png";
 import shoesImg from "./assets/shoes/shoes0.png";
 import shoesImg1 from "./assets/shoes/shoes1.png";
 import shoesImg2 from "./assets/shoes/shoes2.png";
@@ -26,12 +25,23 @@ import shoesImg8 from "./assets/shoes/shoes8.png";
 import shoesImg9 from "./assets/shoes/shoes9.png";
 import shoesImg10 from "./assets/shoes/shoes10.png";
 import shoesImg11 from "./assets/shoes/shoes11.png";
-import beltImg from "./assets/others/others1.png"; 
 import topsImg from "./assets/tops/tops0.png";
 import topsImg1 from "./assets/tops/tops1.png";
 import topsImg2 from "./assets/tops/tops2.png";
 import topsImg3 from "./assets/tops/tops3.png";
 import topsImg4 from "./assets/tops/tops4.png";
+import othersImg from "./assets/others/others0.png"; 
+import othersImg1 from "./assets/others/others1.png"; 
+import othersImg2 from "./assets/others/others2.png"; 
+import othersImg3 from "./assets/others/others3.png"; 
+import bottomsImg from "./assets/bottoms/bottoms0.png";
+import bottomsImg1 from "./assets/bottoms/bottoms1.png";
+import bottomsImg2 from "./assets/bottoms/bottoms2.png";
+import bottomsImg3 from "./assets/bottoms/bottoms3.png";
+import bottomsImg4 from "./assets/bottoms/bottoms4.png";
+import othersImg4 from "./assets/others/others4.png"; 
+
+
 
 export default function Wardrobe() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -56,7 +66,7 @@ export default function Wardrobe() {
     {
       id: 3,
       category: "Bottoms",
-      img: jeansImg,
+      img: bottomsImg,
       name: "Adidas wannabe",
       desc: "Kolor: czarny • Pogoda: każda • Styl: street",
     },
@@ -70,7 +80,7 @@ export default function Wardrobe() {
     {
       id: 5,
       category: "Others",
-      img: beltImg,
+      img: othersImg1,
       name: "Swag pasek",
       desc: "Kolor: czarny • Pogoda: każda • Styl: street",
     },
@@ -194,17 +204,71 @@ export default function Wardrobe() {
       img: topsImg4,
       name: "krzaki",
       desc: "Kolor: leśny • Pogoda: jesień • Styl: las",
+    },
+    {
+      id: 26,
+      category: "Others",
+      img: othersImg,
+      name: "vivienne westwood",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 27,
+      category: "Others",
+      img: othersImg2,
+      name: "'widzisz mnie?'",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 28,
+      category: "Others",
+      img: othersImg3,
+      name: "krołm harts",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 29,
+      category: "Bottoms",
+      img: bottomsImg1,
+      name: "kurde ucieło",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 30,
+      category: "Bottoms",
+      img: bottomsImg2,
+      name: "wsm spk",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 31,
+      category: "Bottoms",
+      img: bottomsImg3,
+      name: "Opium franeczek",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 32,
+      category: "Bottoms",
+      img: bottomsImg4,
+      name: "kojarzy mi sie z zuzia wiec not cool",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
+    },
+    {
+      id: 33,
+      category: "Others",
+      img: othersImg4,
+      name: "krołm harts ale wsm nie jednak",
+      desc: "Kolor: czarny • Pogoda: każda • Styl: street",
     }
     
   ];
 
-  // filtrowanie
   const filteredClothes =
     activeCategory === "All"
       ? clothes
       : clothes.filter((item) => item.category === activeCategory);
 
-  // kategorie
   const categories = ["All", "T-Shirts", "Tops", "Bottoms", "Shoes", "Others"];
 
   return (
