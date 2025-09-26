@@ -1,60 +1,164 @@
-/* src/Wardrobe.css */
+/* ====== NAVBAR ====== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(90deg, #dad6d8, #888888);
-    padding: 10px 20px;
-  }
-  
-  .nav-left,
-  .nav-right {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-left a,
-  .nav-right a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
-  
-  .nav-left a:hover,
-  .nav-right a:hover {
-    color: #0d7909;
-  }
-  
-  .nav-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .logo3 {
-    width: 120px;
-    height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #dad6d8, #888888);
+  padding: 10px 20px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-left a,
+.nav-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+  color: #0d7909;
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo3 {
+  width: 120px;
+  height: auto;
+}
+
+.clothes,
+.user,
+.create,
+.forum {
+  width: 80px;
+}
+
+/* Responsywność */
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .clothes, .user, .create, .forum{
-    width: 80px;
+  .nav-left,
+  .nav-right {
+    gap: 10px;
   }
-  
-  /* Opcjonalnie: responsywność */
-  @media (max-width: 480px) {
-    .navbar {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .nav-left,
-    .nav-right {
-      gap: 10px;
-    }
-  
-    .logo3 {
-      width: 100px;
-    }
+
+  .logo3 {
+    width: 100px;
   }
-  
+}
+
+/* ====== LOSOWANIE OUTFITU ====== */
+
+/* Grid do outfitu */
+.wardrobe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  background: linear-gradient(90deg, #dad6d8, #888888);
+}
+
+/* Karta ubrania/outfitu */
+.wardrobe-card {
+  background: url(assets/wall.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ff0055;
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 4px black;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.wardrobe-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px #ff0055, 0 0 20px #00ff0d;
+}
+
+/* Zdjęcia w karcie */
+.clothes-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Pasek przycisków */
+.category-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  padding: 20px 30px;
+  background: linear-gradient(90deg, #dad6d8, #888888);
+}
+
+/* Przyciski akcji */
+.category-btn {
+  background: url(assets/wall.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ff0055;
+  border-radius: 12px;
+  padding: 20px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 4px black;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px #ff0055, 0 0 20px #00ff0d;
+}
+
+.category-btn.active {
+  border-color: #00ff0d;
+  box-shadow: 0 0 10px #00ff0d, 0 0 20px #ff0055;
+}
+
+/* Nagłówki sekcji np. "Zapisane outfity" */
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.8rem;
+  color: #ff0055;
+  text-shadow: 0 0 6px #00ff0d;
+}
+/* Input do edycji nazwy outfitu */
+.edit-input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 2px solid #ff0055;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+}
