@@ -6,8 +6,10 @@ import createIkona from './assets/CreateIkona.png'
 import clothesIkona from './assets/UbraniaIkona.png'
 import accountIkona from './assets/UserLogo.png'
 import forumIkona from './assets/ForumIkona.png'
+import savedIkona from "./assets/savedIkona.png";
 
-export default function Wardrobe() {
+
+export default function Account() {
   return (
     <div>
       {/* Pasek menu */}
@@ -15,6 +17,9 @@ export default function Wardrobe() {
         <div className="nav-left">
           <Link to="/wardrobe"><img src={clothesIkona} alt="Ikona clothes" className="clothes" /></Link>
           <Link to="/create"><img src={createIkona} alt="Ikona create" className="create" /></Link>
+          <Link to="/saved">
+            <img src={savedIkona} alt="Ikona saved" className="saved" />
+          </Link>
         </div>
 
         <div className="nav-center">

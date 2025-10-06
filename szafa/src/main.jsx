@@ -6,6 +6,7 @@ import Wardrobe from './wardrobe'
 import Create  from './create'
 import Forum from './forum'
 import Account from './account'
+import Saved from './saved'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/create" element={<Create />} />
         <Route path="/forum" element={<Forum />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/saved" element={<Saved />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

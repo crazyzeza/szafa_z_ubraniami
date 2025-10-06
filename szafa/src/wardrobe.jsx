@@ -6,6 +6,7 @@ import createIkona from "./assets/CreateIkona.png";
 import clothesIkona from "./assets/UbraniaIkona.png";
 import accountIkona from "./assets/UserLogo.png";
 import forumIkona from "./assets/ForumIkona.png";
+import savedIkona from "./assets/savedIkona.png";
 
 import tshirtImg from "./assets/tshirts/tshirts1.png";
 import tshirtImg1 from "./assets/tshirts/tshirts0.png";
@@ -282,7 +283,12 @@ export default function Wardrobe() {
           <Link to="/create">
             <img src={createIkona} alt="Ikona create" className="create" />
           </Link>
+          <Link to="/saved">
+            <img src={savedIkona} alt="Ikona saved" className="saved" />
+          </Link>
         </div>
+       
+        
 
         <div className="nav-center">
           <img src={logoMartini} alt="Logo Martini" className="logo3" />

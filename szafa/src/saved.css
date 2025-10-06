@@ -1,0 +1,60 @@
+/* src/Wardrobe.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #dad6d8, #888888);
+    padding: 10px 20px;
+  }
+  
+  .nav-left,
+  .nav-right {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-left a,
+  .nav-right a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .nav-left a:hover,
+  .nav-right a:hover {
+    color: #0d7909;
+  }
+  
+  .nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .logo3 {
+    width: 120px;
+    height: auto;
+  }
+
+  .clothes, .user, .create, .forum{
+    width: 80px;
+  }
+  
+  /* Opcjonalnie: responsywność */
+  @media (max-width: 480px) {
+    .navbar {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .nav-left,
+    .nav-right {
+      gap: 10px;
+    }
+  
+    .logo3 {
+      width: 100px;
+    }
+  }
+  

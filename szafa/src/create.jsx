@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logoMartini from "./assets/logoMartini.png";
 import "./create.css";
@@ -6,9 +6,9 @@ import createIkona from "./assets/CreateIkona.png";
 import clothesIkona from "./assets/UbraniaIkona.png";
 import accountIkona from "./assets/UserLogo.png";
 import forumIkona from "./assets/ForumIkona.png";
+import savedIkona from "./assets/savedIkona.png";
 
-// importy zdjęć (jak wcześniej, nie zmieniam)
-
+// importy zdjęć
 import tshirtImg from "./assets/tshirts/tshirts1.png";
 import tshirtImg1 from "./assets/tshirts/tshirts0.png";
 import tshirtImg2 from "./assets/tshirts/tshirts2.png";
@@ -32,16 +32,16 @@ import topsImg1 from "./assets/tops/tops1.png";
 import topsImg2 from "./assets/tops/tops2.png";
 import topsImg3 from "./assets/tops/tops3.png";
 import topsImg4 from "./assets/tops/tops4.png";
-import othersImg from "./assets/others/others0.png"; 
-import othersImg1 from "./assets/others/others1.png"; 
-import othersImg2 from "./assets/others/others2.png"; 
-import othersImg3 from "./assets/others/others3.png"; 
+import othersImg from "./assets/others/others0.png";
+import othersImg1 from "./assets/others/others1.png";
+import othersImg2 from "./assets/others/others2.png";
+import othersImg3 from "./assets/others/others3.png";
+import othersImg4 from "./assets/others/others4.png";
 import bottomsImg from "./assets/bottoms/bottoms0.png";
 import bottomsImg1 from "./assets/bottoms/bottoms1.png";
 import bottomsImg2 from "./assets/bottoms/bottoms2.png";
 import bottomsImg3 from "./assets/bottoms/bottoms3.png";
 import bottomsImg4 from "./assets/bottoms/bottoms4.png";
-import othersImg4 from "./assets/others/others4.png"; 
 
 export default function Create() {
   const clothes = [
@@ -80,12 +80,8 @@ export default function Create() {
     { category: "Others", img: othersImg4 },
   ];
 
-  const [currentOutfit, setCurrentOutfit] = useState(null);
-  const [savedOutfits, setSavedOutfits] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [newName, setNewName] = useState("");
-
   const categories = ["T-Shirts", "Tops", "Bottoms", "Shoes", "Others"];
+  const [currentOutfit, setCurrentOutfit] = useState(null);
 
   const generateOutfit = () => {
     const outfit = categories.map((cat) => {
@@ -97,34 +93,20 @@ export default function Create() {
 
   const saveOutfit = () => {
     if (currentOutfit) {
+      const saved = JSON.parse(localStorage.getItem("savedOutfits") || "[]");
       const newOutfit = {
-        name: `Outfit #${savedOutfits.length + 1}`,
+        name: `Outfit #${saved.length + 1}`,
         items: currentOutfit,
       };
-      setSavedOutfits([...savedOutfits, newOutfit]);
+      const updated = [...saved, newOutfit];
+      localStorage.setItem("savedOutfits", JSON.stringify(updated));
       setCurrentOutfit(null);
+      alert("Outfit zapisany! Sprawdź w zakładce 'Saved 👕'");
     }
   };
 
   const discardOutfit = () => {
     setCurrentOutfit(null);
-  };
-
-  const deleteOutfit = (index) => {
-    setSavedOutfits(savedOutfits.filter((_, i) => i !== index));
-  };
-
-  const startEditing = (index, currentName) => {
-    setEditingIndex(index);
-    setNewName(currentName);
-  };
-
-  const saveNameChange = (index) => {
-    const updated = [...savedOutfits];
-    updated[index].name = newName;
-    setSavedOutfits(updated);
-    setEditingIndex(null);
-    setNewName("");
   };
 
   return (
@@ -137,6 +119,9 @@ export default function Create() {
           </Link>
           <Link to="/create">
             <img src={createIkona} alt="Ikona create" className="create" />
+          </Link>
+          <Link to="/saved">
+            <img src={savedIkona} alt="Ikona saved" className="saved" />
           </Link>
         </div>
 
@@ -154,98 +139,35 @@ export default function Create() {
         </div>
       </header>
 
-      {/* Zawartość */}
       <h1>Stwórz outfit 👕👖👗</h1>
       <p>Wylosuj swój unikalny look!</p>
 
-      {/* przycisk losowania */}
       <div className="category-bar">
         <button className="category-btn" onClick={generateOutfit}>
           ➕ Nowy outfit
         </button>
       </div>
 
-      {/* pokaz aktualny outfit */}
       {currentOutfit && (
-        <div className="wardrobe-grid">
-          {currentOutfit.map((item, index) => (
-            <div key={index} className="wardrobe-card">
-              <img src={item.img} alt={item.category} className="clothes-img" />
-              <p>{item.category}</p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {currentOutfit && (
-        <div className="category-bar">
-          <button className="category-btn" onClick={saveOutfit}>
-            ✅ Zapisz
-          </button>
-          <button className="category-btn" onClick={discardOutfit}>
-            ❌ Odrzuć
-          </button>
-          <button className="category-btn" onClick={generateOutfit}>
-            🎲 Losuj ponownie
-          </button>
-        </div>
-      )}
-
-      {/* zapisane outfity */}
-      {savedOutfits.length > 0 && (
         <>
-          <h2>Zapisane outfity</h2>
           <div className="wardrobe-grid">
-            {savedOutfits.map((outfit, i) => (
-              <div key={i} className="wardrobe-card">
-                {outfit.items.map((item, j) => (
-                  <img
-                    key={j}
-                    src={item.img}
-                    alt={item.category}
-                    className="clothes-img"
-                  />
-                ))}
-
-                {/* nazwa + edycja */}
-                {editingIndex === i ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      className="edit-input"
-                    />
-                    <button
-                      className="category-btn"
-                      onClick={() => saveNameChange(i)}
-                    >
-                      💾 Zapisz nazwę
-                    </button>
-                  </div>
-                ) : (
-                  <p>{outfit.name}</p>
-                )}
-
-                {/* akcje */}
-                <div className="category-bar">
-                  {editingIndex !== i && (
-                    <button
-                      className="category-btn"
-                      onClick={() => startEditing(i, outfit.name)}
-                    >
-                      ✏️ Zmień nazwę
-                    </button>
-                  )}
-                  <button
-                    className="category-btn"
-                    onClick={() => deleteOutfit(i)}
-                  >
-                    ❌ Usuń
-                  </button>
-                </div>
+            {currentOutfit.map((item, index) => (
+              <div key={index} className="wardrobe-card">
+                <img src={item.img} alt={item.category} className="clothes-img" />
+                <p>{item.category}</p>
               </div>
             ))}
+          </div>
+          <div className="category-bar">
+            <button className="category-btn" onClick={saveOutfit}>
+              ✅ Zapisz
+            </button>
+            <button className="category-btn" onClick={discardOutfit}>
+              ❌ Odrzuć
+            </button>
+            <button className="category-btn" onClick={generateOutfit}>
+              🎲 Losuj ponownie
+            </button>
           </div>
         </>
       )}
