@@ -10,20 +10,41 @@ import savedIkona from "./assets/savedIkona.png";
 
 export default function Saved() {
   const [savedOutfits, setSavedOutfits] = useState([]);
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [newName, setNewName] = useState("");
 
+  // wczytanie zapisanych outfitów z localStorage
   useEffect(() => {
     const outfits = JSON.parse(localStorage.getItem("savedOutfits") || "[]");
     setSavedOutfits(outfits);
   }, []);
 
+  // usuwanie outfitu
   const deleteOutfit = (index) => {
     const updated = savedOutfits.filter((_, i) => i !== index);
     setSavedOutfits(updated);
     localStorage.setItem("savedOutfits", JSON.stringify(updated));
   };
 
+  // rozpoczęcie edycji nazwy
+  const startEditing = (index, currentName) => {
+    setEditingIndex(index);
+    setNewName(currentName);
+  };
+
+  // zapis nowej nazwy outfitu
+  const saveNameChange = (index) => {
+    const updated = [...savedOutfits];
+    updated[index].name = newName;
+    setSavedOutfits(updated);
+    localStorage.setItem("savedOutfits", JSON.stringify(updated));
+    setEditingIndex(null);
+    setNewName("");
+  };
+
   return (
     <div>
+      {/* Pasek menu */}
       <header className="navbar">
         <div className="nav-left">
           <Link to="/wardrobe">
@@ -58,36 +79,60 @@ export default function Saved() {
           Brak zapisanych outfitów. Stwórz coś w zakładce „Create”!
         </p>
       ) : (
-        <div
-          className="saved-horizontal"
-          style={{
-            display: "flex",
-            overflowX: "auto",
-            gap: "20px",
-            padding: "20px",
-            background: "linear-gradient(90deg, #dad6d8, #888888)",
-          }}
-        >
-          {savedOutfits.map((outfit, i) => (
-            <div key={i} className="wardrobe-card" style={{ minWidth: "250px" }}>
-              {outfit.items.map((item, j) => (
-                <img
-                  key={j}
-                  src={item.img}
-                  alt={item.category}
-                  className="clothes-img"
-                />
-              ))}
-              <p>{outfit.name}</p>
-              <button
-                className="category-btn"
-                onClick={() => deleteOutfit(i)}
-                style={{ marginTop: "10px" }}
-              >
-                ❌ Usuń
-              </button>
-            </div>
-          ))}
+        <div className="saved-container">
+          <div className="saved-horizontal">
+            {savedOutfits.map((outfit, i) => (
+              <div key={i} className="wardrobe-card">
+                {/* zdjęcia outfitu */}
+                {outfit.items.map((item, j) => (
+                  <img
+                    key={j}
+                    src={item.img}
+                    alt={item.category}
+                    className="clothes-img"
+                  />
+                ))}
+
+                {/* nazwa + edycja */}
+                {editingIndex === i ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      className="edit-input"
+                    />
+                    <button
+                      className="category-btn"
+                      onClick={() => saveNameChange(i)}
+                    >
+                      💾 Zapisz nazwę
+                    </button>
+                  </div>
+                ) : (
+                  <p>{outfit.name}</p>
+                )}
+
+                {/* przyciski akcji */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {editingIndex !== i && (
+                    <button
+                      className="category-btn"
+                      onClick={() => startEditing(i, outfit.name)}
+                    >
+                      ✏️ Zmień nazwę
+                    </button>
+                  )}
+                  <button
+                    className="category-btn"
+                    onClick={() => deleteOutfit(i)}
+                  >
+                    ❌ Usuń
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

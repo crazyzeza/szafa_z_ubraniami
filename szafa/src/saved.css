@@ -57,4 +57,41 @@
       width: 100px;
     }
   }
+  /* Input do edycji nazwy outfitu */
+.edit-input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 2px solid #ff0055;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+  background: #fff;
+  color: #000;
+}
+/* ====== POZIOMY UKŁAD OUTFITÓW ====== */
+.saved-container {
+  padding: 20px;
+  background: linear-gradient(90deg, #dad6d8, #888888);
+}
+
+/* kontener główny z poziomym przewijaniem */
+.saved-horizontal {
+  display: flex;
+  flex-wrap: nowrap; /* nie pozwala łamać się w dół */
+  overflow-x: auto;  /* przewijanie poziome */
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 20px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; /* ładniejsze przewijanie */
+}
+
+/* każda karta zachowuje własną szerokość */
+.saved-horizontal .wardrobe-card {
+  flex-shrink: 0;          /* nie kurczy się */
+  min-width: 250px;        /* stała szerokość */
+  scroll-snap-align: start; /* zatrzymuje się przy przewijaniu */
+}
+
   
