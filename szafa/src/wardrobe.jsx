@@ -304,9 +304,6 @@ export default function Wardrobe() {
         </div>
       </header>
 
-      {/* Zawartość strony */}
-      <h1>Twoja szafa 👕👖👗</h1>
-      <p>Witaj w Wardrobe!</p>
 
       {/* Kategorie */}
       <div className="category-bar">

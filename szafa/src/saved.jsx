@@ -13,26 +13,22 @@ export default function Saved() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [newName, setNewName] = useState("");
 
-  // wczytanie zapisanych outfitów z localStorage
   useEffect(() => {
     const outfits = JSON.parse(localStorage.getItem("savedOutfits") || "[]");
     setSavedOutfits(outfits);
   }, []);
 
-  // usuwanie outfitu
   const deleteOutfit = (index) => {
     const updated = savedOutfits.filter((_, i) => i !== index);
     setSavedOutfits(updated);
     localStorage.setItem("savedOutfits", JSON.stringify(updated));
   };
 
-  // rozpoczęcie edycji nazwy
   const startEditing = (index, currentName) => {
     setEditingIndex(index);
     setNewName(currentName);
   };
 
-  // zapis nowej nazwy outfitu
   const saveNameChange = (index) => {
     const updated = [...savedOutfits];
     updated[index].name = newName;
@@ -72,8 +68,7 @@ export default function Saved() {
         </div>
       </header>
 
-      <h1>Zapisane outfity 👕👖👗</h1>
-
+    <p>  </p>
       {savedOutfits.length === 0 ? (
         <p style={{ textAlign: "center", color: "#555" }}>
           Brak zapisanych outfitów. Stwórz coś w zakładce „Create”!

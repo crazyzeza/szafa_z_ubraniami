@@ -138,8 +138,6 @@ export default function Create() {
         </div>
       </header>
 
-      <h1>Stwórz outfit 👕👖👗</h1>
-      <p>Wylosuj swój unikalny look!</p>
 
       <div className="category-bar">
         <button className="category-btn" onClick={generateOutfit}>
