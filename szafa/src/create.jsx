@@ -8,7 +8,6 @@ import accountIkona from "./assets/UserLogo.png";
 import forumIkona from "./assets/ForumIkona.png";
 import savedIkona from "./assets/savedIkona.png";
 
-// importy zdjęć
 import tshirtImg from "./assets/tshirts/tshirts1.png";
 import tshirtImg1 from "./assets/tshirts/tshirts0.png";
 import tshirtImg2 from "./assets/tshirts/tshirts2.png";
@@ -101,7 +100,7 @@ export default function Create() {
       const updated = [...saved, newOutfit];
       localStorage.setItem("savedOutfits", JSON.stringify(updated));
       setCurrentOutfit(null);
-      alert("Outfit zapisany! Sprawdź w zakładce 'Saved 👕'");
+      alert("Outfit zapisany! Sprawdź w zakładce 'Saved'");
     }
   };
 
