@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './App.css'
 import logoMartini from './assets/logoMartini.png'
@@ -16,6 +16,13 @@ function App() {
       alert("Nieprawidłowy email lub hasło")
     }
   }
+
+  useEffect(()=>{
+    fetch('http://localhost:8081/users')
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+  },[])
 
   return (
     <div className="login-container">
@@ -52,6 +59,7 @@ function App() {
           <div className='createaccount'>
             <a href="#">Stworz konto</a>
           </div>
+
         </form>
       </div>
     </div>
