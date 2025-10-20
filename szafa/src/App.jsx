@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './App.css'
 import logoMartini from './assets/logoMartini.png'
+//Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
 
 function App() {
   const [email, setEmail] = useState("")
