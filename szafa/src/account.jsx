@@ -33,8 +33,7 @@ export default function Account() {
       </header>
 
       {/* Zawartość strony */}
-      <h1>Twoje konto 👕👖👗</h1>
-      <p>Witaj w Wardrobe!</p>
+      <h1>Konto</h1>
     </div>
   );
 }

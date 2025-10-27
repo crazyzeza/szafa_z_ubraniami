@@ -33,8 +33,7 @@ export default function Forum() {
       </header>
 
       {/* Zawartość strony */}
-      <h1>Forum 👕👖👗</h1>
-      <p>Witaj w Wardrobe!</p>
+      <h1>Forum</h1>
     </div>
   );
 }

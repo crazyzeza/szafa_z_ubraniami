@@ -141,7 +141,7 @@ export default function Create() {
 
       <div className="category-bar">
         <button className="category-btn" onClick={generateOutfit}>
-          ➕ Nowy outfit
+          Nowy outfit
         </button>
       </div>
 
@@ -157,13 +157,13 @@ export default function Create() {
           </div>
           <div className="category-bar">
             <button className="category-btn" onClick={saveOutfit}>
-              ✅ Zapisz
+              Zapisz
             </button>
             <button className="category-btn" onClick={discardOutfit}>
-              ❌ Odrzuć
+              Odrzuć
             </button>
             <button className="category-btn" onClick={generateOutfit}>
-              🎲 Losuj ponownie
+              Losuj ponownie
             </button>
           </div>
         </>

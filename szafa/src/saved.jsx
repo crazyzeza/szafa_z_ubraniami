@@ -70,8 +70,8 @@ export default function Saved() {
 
     <p>  </p>
       {savedOutfits.length === 0 ? (
-        <p style={{ textAlign: "center", color: "#555" }}>
-          Brak zapisanych outfitów. Stwórz coś w zakładce „Create”!
+        <p style={{ textAlign: "center"}}>
+          <h1>Brak zapisanych outfitow</h1>
         </p>
       ) : (
         <div className="saved-container">
@@ -88,7 +88,7 @@ export default function Saved() {
                   />
                 ))}
 
-                {/* nazwa + edycja */}
+                {/* nazwa i edycja */}
                 {editingIndex === i ? (
                   <div>
                     <input
@@ -101,7 +101,7 @@ export default function Saved() {
                       className="category-btn"
                       onClick={() => saveNameChange(i)}
                     >
-                      💾 Zapisz nazwę
+                      Zapisz nazwę
                     </button>
                   </div>
                 ) : (
@@ -115,14 +115,14 @@ export default function Saved() {
                       className="category-btn"
                       onClick={() => startEditing(i, outfit.name)}
                     >
-                      ✏️ Zmień nazwę
+                    Zmień nazwę
                     </button>
                   )}
                   <button
                     className="category-btn"
                     onClick={() => deleteOutfit(i)}
                   >
-                    ❌ Usuń
+                  Usuń
                   </button>
                 </div>
               </div>
