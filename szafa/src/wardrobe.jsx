@@ -75,7 +75,7 @@ export default function Wardrobe() {
            className="wardrobe-card"
            onClick={() => setSelectedItem(item)}>
             <img
-             src={item.zdjecie}
+             src={'images/'+item.zdjecie}
              alt={item.nazwa}
              className="clothes-img"
            />
