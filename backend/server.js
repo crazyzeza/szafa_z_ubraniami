@@ -63,6 +63,38 @@ app.get('/others', (req,res) => {
         return res.json(data);
     })
 })
+app.get('/wardrobe', (req, res) => {
+    const queries = [
+        { table: 'bluzka', category: 'T-Shirts' },
+        { table: 'top', category: 'Tops' },
+        { table: 'spodnie', category: 'Bottoms' },
+        { table: 'buty', category: 'Shoes' },
+        { table: 'akcesoria', category: 'Others' }
+    ];
+    const results = [];
+    let completed = 0;
+    queries.forEach(({ table, category }) => {
+        const sql = `SELECT nazwa, opis, zdjecie FROM ${table}`;
+        db.query(sql, (err, data) => {
+            if (err) {
+                console.error(`Błąd zapytania dla tabeli ${table}:`, err);
+                return res.status(500).json({ error: err });
+            }
+            const mapped = data.map(item => ({
+                category,
+                nazwa: item.nazwa,
+                opis: item.opis,
+                zdjecie: item.zdjecie
+            }));
+            results.push(...mapped);
+            completed++;
+            if (completed === queries.length) {
+                console.log('laczenie')
+                res.json(results);
+            }
+        });
+    });
+ });
 
 app.listen(8081, () =>{
     console.log("dziala")
