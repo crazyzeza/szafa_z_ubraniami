@@ -48,7 +48,6 @@ export default function Wardrobe() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeCategory, setActiveCategory] = useState("All");
 
-  // przykładowa baza ubrań
   const clothes = [
     {
       id: 1,
