@@ -14,14 +14,24 @@ export default function Saved() {
   const [newName, setNewName] = useState("");
 
   useEffect(() => {
-    const outfits = JSON.parse(localStorage.getItem("savedOutfits") || "[]");
-    setSavedOutfits(outfits);
+    fetch("http://localhost:8081/saved")
+      .then((res) => res.json())
+      .then((data) => setSavedOutfits(data))
+      .catch((err) => console.error("Błąd pobierania outfitów:", err));
   }, []);
 
-  const deleteOutfit = (index) => {
-    const updated = savedOutfits.filter((_, i) => i !== index);
-    setSavedOutfits(updated);
-    localStorage.setItem("savedOutfits", JSON.stringify(updated));
+  const deleteOutfit = async (id) => {
+    if (!window.confirm("Czy na pewno chcesz usunąć ten outfit?")) return;
+    try {
+      const res = await fetch(`http://localhost:8081/delete/${id}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+      alert(result.message || "Outfit usunięty");
+      setSavedOutfits(savedOutfits.filter((o) => o.id !== id));
+    } catch (error) {
+      console.error("Błąd usuwania outfitu:", error);
+    }
   };
 
   const startEditing = (index, currentName) => {
@@ -29,13 +39,25 @@ export default function Saved() {
     setNewName(currentName);
   };
 
-  const saveNameChange = (index) => {
-    const updated = [...savedOutfits];
-    updated[index].name = newName;
-    setSavedOutfits(updated);
-    localStorage.setItem("savedOutfits", JSON.stringify(updated));
-    setEditingIndex(null);
-    setNewName("");
+  const saveNameChange = async (id, index) => {
+    try {
+      const res = await fetch(`http://localhost:8081/update_name/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newName }),
+      });
+      const result = await res.json();
+      if (result.message) {
+        const updated = [...savedOutfits];
+        updated[index].name = newName;
+        setSavedOutfits(updated);
+        setEditingIndex(null);
+        setNewName("");
+        alert("Nazwa outfitu zaktualizowana!");
+      }
+    } catch (error) {
+      console.error("Błąd aktualizacji nazwy:", error);
+    }
   };
 
   return (
@@ -68,27 +90,26 @@ export default function Saved() {
         </div>
       </header>
 
-    <p>  </p>
       {savedOutfits.length === 0 ? (
-        <p style={{ textAlign: "center"}}>
-          <h1>Brak zapisanych outfitow</h1>
-        </p>
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <h1>Brak zapisanych outfitów</h1>
+        </div>
       ) : (
         <div className="saved-container">
           <div className="saved-horizontal">
             {savedOutfits.map((outfit, i) => (
-              <div key={i} className="wardrobe-card">
-                {/* zdjęcia outfitu */}
-                {outfit.items.map((item, j) => (
-                  <img
-                    key={j}
-                    src={item.img}
-                    alt={item.category}
-                    className="clothes-img"
-                  />
-                ))}
+              <div key={outfit.id} className="wardrobe-card">
+                <div className="outfit-images">
+                  {outfit.items.map((item, j) => (
+                    <img
+                      key={j}
+                      src={item.zdjecie}
+                      alt={item.nazwa}
+                      className="clothes-img"
+                    />
+                  ))}
+                </div>
 
-                {/* nazwa i edycja */}
                 {editingIndex === i ? (
                   <div>
                     <input
@@ -99,7 +120,7 @@ export default function Saved() {
                     />
                     <button
                       className="category-btn"
-                      onClick={() => saveNameChange(i)}
+                      onClick={() => saveNameChange(outfit.id, i)}
                     >
                       Zapisz nazwę
                     </button>
@@ -108,21 +129,27 @@ export default function Saved() {
                   <p>{outfit.name}</p>
                 )}
 
-                {/* przyciski akcji */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    marginTop: "10px",
+                  }}
+                >
                   {editingIndex !== i && (
                     <button
                       className="category-btn"
                       onClick={() => startEditing(i, outfit.name)}
                     >
-                    Zmień nazwę
+                      Zmień nazwę
                     </button>
                   )}
                   <button
                     className="category-btn"
-                    onClick={() => deleteOutfit(i)}
+                    onClick={() => deleteOutfit(outfit.id)}
                   >
-                  Usuń
+                    Usuń
                   </button>
                 </div>
               </div>

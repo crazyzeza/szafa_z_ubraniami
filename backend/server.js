@@ -199,6 +199,25 @@ app.get('/wardrobe', (req, res) => {
 
 
 
+  app.delete("/delete/:id", (req, res) => {
+    const { id } = req.params;
+    const deleteOutfit = "DELETE FROM saved WHERE id_outfit = ?";
+      db.query(deleteOutfit, [id], (err2) => {
+        if (err2) return res.status(500).json(err2);
+        res.json({ message: "Outfit usunięty!" });
+      });
+  });
+  
+  app.put("/update_name/:id", (req, res) => {
+    const { id } = req.params;
+    const { newName } = req.body;
+    const sql = "UPDATE saved SET nazwa = ? WHERE id_outfit = ?";
+    db.query(sql, [newName, id], (err) => {
+      if (err) return res.status(500).json(err);
+      res.json({ message: "Nazwa outfitu zaktualizowana" });
+    });
+  });
+
 
 app.listen(8081, () =>{
     console.log("dziala")

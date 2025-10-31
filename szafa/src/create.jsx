@@ -14,27 +14,37 @@ export default function Create() {
   const categories = ["T-Shirts", "Tops", "Bottoms", "Shoes", "Others"];
   const [currentOutfit, setCurrentOutfit] = useState(null);
 
-  const generateOutfit = () => {
-    const outfit = categories.map((cat) => {
-      const items = clothes.filter((c) => c.category === cat);
-      return items[Math.floor(Math.random() * items.length)];
-    });
-    setCurrentOutfit(outfit);
-  };
 
-  const saveOutfit = () => {
-    if (currentOutfit) {
-      const saved = JSON.parse(localStorage.getItem("savedOutfits") || "[]");
-      const newOutfit = {
-        name: `Outfit #${saved.length + 1}`,
-        items: currentOutfit,
-      };
-      const updated = [...saved, newOutfit];
-      localStorage.setItem("savedOutfits", JSON.stringify(updated));
+
+const generateOutfit = async () => {
+  try {
+    const res = await fetch("http://localhost:8081/create");
+    const data = await res.json();
+    setCurrentOutfit(data);
+  } catch (error) {
+    console.error("Błąd generowania outfitu:", error);
+  }
+};
+
+const saveOutfit = async () => {
+  if (currentOutfit) {
+    try {
+      const res = await fetch("http://localhost:8081/saved", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `Outfit #${Date.now()}`,
+          items: currentOutfit,
+        }),
+      });
+      const result = await res.json();
+      alert(result.message || "Outfit zapisany");
       setCurrentOutfit(null);
-      alert("Outfit zapisany! Sprawdź w zakładce 'Saved'");
+    } catch (error) {
+      console.error("Błąd zapisu outfitu:", error);
     }
-  };
+  }
+};
 
   const discardOutfit = () => {
     setCurrentOutfit(null);
@@ -82,7 +92,7 @@ export default function Create() {
           <div className="wardrobe-grid">
             {currentOutfit.map((item, index) => (
               <div key={index} className="wardrobe-card">
-                <img src={item.img} alt={item.category} className="clothes-img" />
+                <img src={'images/'+item.img} alt={item.category} className="clothes-img" />
                 <p>{item.category}</p>
               </div>
             ))}
