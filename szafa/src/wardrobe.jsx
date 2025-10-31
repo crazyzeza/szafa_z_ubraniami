@@ -24,7 +24,7 @@ export default function Wardrobe() {
      })
      .catch((err) => console.error("Błąd pobierania danych:", err));
  }, []);
- const categories = ["All", "T-Shirts", "Tops", "Bottoms", "Shoes", "Others"];
+ const categories = ["All", "T-Shirts", "Tops", "Bottoms", "Shoes", "Bags", "Others"];
  const filteredClothes =
    activeCategory === "All"
      ? clothes

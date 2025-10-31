@@ -10,41 +10,6 @@ import savedIkona from "./assets/savedIkona.png";
 
 
 export default function Create() {
-  const clothes = [
-    { category: "T-Shirts", img: tshirtImg },
-    { category: "T-Shirts", img: tshirtImg1 },
-    { category: "T-Shirts", img: tshirtImg2 },
-    { category: "T-Shirts", img: tshirtImg3 },
-    { category: "T-Shirts", img: tshirtImg4 },
-    { category: "T-Shirts", img: tshirtImg5 },
-    { category: "Tops", img: topsImg },
-    { category: "Tops", img: topsImg1 },
-    { category: "Tops", img: topsImg2 },
-    { category: "Tops", img: topsImg3 },
-    { category: "Tops", img: topsImg4 },
-    { category: "Bottoms", img: bottomsImg },
-    { category: "Bottoms", img: bottomsImg1 },
-    { category: "Bottoms", img: bottomsImg2 },
-    { category: "Bottoms", img: bottomsImg3 },
-    { category: "Bottoms", img: bottomsImg4 },
-    { category: "Shoes", img: shoesImg },
-    { category: "Shoes", img: shoesImg1 },
-    { category: "Shoes", img: shoesImg2 },
-    { category: "Shoes", img: shoesImg3 },
-    { category: "Shoes", img: shoesImg4 },
-    { category: "Shoes", img: shoesImg5 },
-    { category: "Shoes", img: shoesImg6 },
-    { category: "Shoes", img: shoesImg7 },
-    { category: "Shoes", img: shoesImg8 },
-    { category: "Shoes", img: shoesImg9 },
-    { category: "Shoes", img: shoesImg10 },
-    { category: "Shoes", img: shoesImg11 },
-    { category: "Others", img: othersImg },
-    { category: "Others", img: othersImg1 },
-    { category: "Others", img: othersImg2 },
-    { category: "Others", img: othersImg3 },
-    { category: "Others", img: othersImg4 },
-  ];
 
   const categories = ["T-Shirts", "Tops", "Bottoms", "Shoes", "Others"];
   const [currentOutfit, setCurrentOutfit] = useState(null);
