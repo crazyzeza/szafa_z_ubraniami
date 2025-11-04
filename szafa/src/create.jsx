@@ -29,7 +29,12 @@ export default function Create() {
   };
 
 const saveOutfit = async () => {
+  if (!currentOutfit || currentOutfit.length === 0) {
+    alert("Nie ma outfitu do zapisania!");
+    return;
+  }
   if (currentOutfit) {
+    console.log("currentOutfit:", JSON.stringify(currentOutfit, null, 2));
     const ids = {
       id_bluzka: currentOutfit.find(i => i.category === "T-Shirts")?.id,
       id_top: currentOutfit.find(i => i.category === "Tops")?.id,
@@ -38,14 +43,19 @@ const saveOutfit = async () => {
       id_akcesoria: currentOutfit.find(i => i.category === "Others")?.id,
       id_torebka: currentOutfit.find(i => i.category === "Bags")?.id,
     };
+    
+    const body = {
+      name: `Outfit #${Date.now()}`,
+      ...ids,
+      id_uzytkownika: 1,
+    };
+    console.log("Wysyłane dane do backendu:", JSON.stringify(body, null, 2));
+
     try {
       const res = await fetch("http://localhost:8081/saved", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: `Outfit #${Date.now()}`,
-          ...ids,
-        }),
+        body: JSON.stringify(body),
       });
       const result = await res.json();
       alert(result.message || "Outfit zapisany");

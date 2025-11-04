@@ -26,28 +26,28 @@ app.get('/users', (req, res)=>{
 })
 
 app.get('/tshirts', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM bluzka";
+    const sql= "SELECT nazwa, opis AS id, zdjecie FROM bluzka";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
     })
 })
 app.get('/shoes', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM buty";
+    const sql= "SELECT nazwa AS id, opis, zdjecie FROM buty";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
     })
 })
 app.get('/bottoms', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM spodnie";
+    const sql= "SELECT nazwa AS id, opis, zdjecie FROM spodnie";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
     })
 })
 app.get('/tops', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM top";
+    const sql= "SELECT nazwa AS id, opis, zdjecie FROM top";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
@@ -55,7 +55,7 @@ app.get('/tops', (req,res) => {
 })
 
 app.get('/others', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM akcesoria";
+    const sql= "SELECT nazwa AS id, opis, zdjecie FROM akcesoria";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
@@ -63,7 +63,7 @@ app.get('/others', (req,res) => {
 })
 
 app.get('/bags', (req,res) => {
-    const sql= "SELECT nazwa, opis, zdjecie FROM torebka";
+    const sql= "SELECT nazwa AS id, opis, zdjecie FROM torebka";
     db.query(sql,(err, data)=>{
         if(err) return res.json(err);
         return res.json(data);
@@ -121,7 +121,7 @@ app.get('/wardrobe', (req, res) => {
     let completed = 0;
   
     queries.forEach(({ table, category }) => {
-      const sql = `SELECT nazwa, opis, zdjecie FROM ${table} ORDER BY RAND() LIMIT 1`;
+      const sql = `SELECT id_${table}, nazwa, opis, zdjecie FROM ${table} ORDER BY RAND() LIMIT 1`;
       db.query(sql, (err, data) => {
         if (err) {
           console.error(err);
@@ -143,7 +143,7 @@ app.get('/wardrobe', (req, res) => {
 
   app.post("/saved", (req, res) => {
     const {name, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika} = req.body;
-  
+    console.log("Body przy POST /saved:", req.body);
     const sql = "INSERT INTO saved (nazwa, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
     db.query(
       sql,
