@@ -16,25 +16,35 @@ export default function Create() {
 
 
 
-const generateOutfit = async () => {
-  try {
-    const res = await fetch("http://localhost:8081/create");
-    const data = await res.json();
-    setCurrentOutfit(data);
-  } catch (error) {
-    console.error("Błąd generowania outfitu:", error);
-  }
-};
+  const generateOutfit = async () => {
+    try {
+      const res = await fetch(`http://localhost:8081/create?_=${Date.now()}`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+      setCurrentOutfit(data);
+    } catch (error) {
+      console.error("Błąd generowania outfitu:", error);
+    }
+  };
 
 const saveOutfit = async () => {
   if (currentOutfit) {
+    const ids = {
+      id_bluzka: currentOutfit.find(i => i.category === "T-Shirts")?.id,
+      id_top: currentOutfit.find(i => i.category === "Tops")?.id,
+      id_spodnie: currentOutfit.find(i => i.category === "Bottoms")?.id,
+      id_buty: currentOutfit.find(i => i.category === "Shoes")?.id,
+      id_akcesoria: currentOutfit.find(i => i.category === "Others")?.id,
+      id_torebka: currentOutfit.find(i => i.category === "Bags")?.id,
+    };
     try {
       const res = await fetch("http://localhost:8081/saved", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: `Outfit #${Date.now()}`,
-          items: currentOutfit,
+          ...ids,
         }),
       });
       const result = await res.json();
@@ -92,8 +102,9 @@ const saveOutfit = async () => {
           <div className="wardrobe-grid">
             {currentOutfit.map((item, index) => (
               <div key={index} className="wardrobe-card">
-                <img src={'images/'+item.img} alt={item.category} className="clothes-img" />
+                <img src={`images/${item.zdjecie}`} alt={item.category} className="clothes-img"/>
                 <p>{item.category}</p>
+                <p>{item.nazwa}</p>
               </div>
             ))}
           </div>

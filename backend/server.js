@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -141,27 +142,17 @@ app.get('/wardrobe', (req, res) => {
   });
 
   app.post("/saved", (req, res) => {
-    const { name, items } = req.body;
+    const {name, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika} = req.body;
   
-    const sql = "INSERT INTO saved (nazwa) VALUES (?)";
-    db.query(sql, [name], (err, result) => {
-      if (err) return res.status(500).json(err);
-      const outfitId = result.insertId;
-  
-      const sqlItem =
-        "INSERT INTO saved (id_outfit, nazwa, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika) VALUES ?";
-      const values = items.map((i) => [
-        outfitId,
-        i.category,
-        i.nazwa,
-        i.opis,
-        i.zdjecie,
-      ]);
-      db.query(sqlItem, [values], (err2) => {
-        if (err2) return res.status(500).json(err2);
-        res.json({ message: "Outfit zapisany" });
-      });
-    });
+    const sql = "INSERT INTO saved (nazwa, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
+    db.query(
+      sql,
+      [name, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika],
+      (err) => {
+        if (err) return res.status(500).json(err);
+        res.json({ message: "Outfit zapisany!" });
+      }
+    );
   });
   
 
