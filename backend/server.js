@@ -130,6 +130,7 @@ app.get('/wardrobe', (req, res) => {
         if (data.length > 0) {
           results.push({
             category,
+            id: data[0][`id_${table}`],
             nazwa: data[0].nazwa,
             opis: data[0].opis,
             zdjecie: data[0].zdjecie,
@@ -144,7 +145,7 @@ app.get('/wardrobe', (req, res) => {
   app.post("/saved", (req, res) => {
     const {name, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika} = req.body;
     console.log("Body przy POST /saved:", req.body);
-    const sql = "INSERT INTO saved (nazwa, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
+    const sql = "INSERT INTO saved (nazwa, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     db.query(
       sql,
       [name, id_spodnie, id_buty, id_bluzka, id_top, id_akcesoria, id_torebka, id_uzytkownika],
