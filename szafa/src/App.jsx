@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'
 import logoMartini from './assets/logoMartini.png'
 //Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-
+//npm install nodemon cors expressnp
+localStorage.setItem("userId", user.id_uzytkownika);
 
 function App() {
   const [email, setEmail] = useState("")

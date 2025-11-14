@@ -12,9 +12,10 @@ export default function Saved() {
   const [savedOutfits, setSavedOutfits] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [newName, setNewName] = useState("");
+  const [selectedOutfit, setSelectedOutfit] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8081/saved")
+    fetch(`http://localhost:8081/saved/${localStorage.getItem("userId")}`)
       .then((res) => res.json())
       .then((data) => setSavedOutfits(data))
       .catch((err) => console.error("Błąd pobierania outfitów:", err));
@@ -98,14 +99,19 @@ export default function Saved() {
         <div className="saved-container">
           <div className="saved-horizontal">
             {savedOutfits.map((outfit, i) => (
-              <div key={outfit.id} className="wardrobe-card">
-                <div className="outfit-images">
+              <div
+                key={outfit.id}
+                className="wardrobe-card"
+                onClick={() => setSelectedOutfit(outfit)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="outfit-images-small">
                   {outfit.items.map((item, j) => (
                     <img
                       key={j}
-                      src={item.zdjecie}
-                      alt={item.nazwa}
-                      className="clothes-img"
+                      src={"images/" + item.zdjecie}
+                      alt={item.category}
+                      className="clothes-icon"
                     />
                   ))}
                 </div>
@@ -120,7 +126,10 @@ export default function Saved() {
                     />
                     <button
                       className="category-btn"
-                      onClick={() => saveNameChange(outfit.id, i)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        saveNameChange(outfit.id, i);
+                      }}
                     >
                       Zapisz nazwę
                     </button>
@@ -129,31 +138,52 @@ export default function Saved() {
                   <p>{outfit.name}</p>
                 )}
 
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                    marginTop: "10px",
-                  }}
-                >
+                <div className="button-box">
                   {editingIndex !== i && (
                     <button
                       className="category-btn"
-                      onClick={() => startEditing(i, outfit.name)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        startEditing(i, outfit.name);
+                      }}
                     >
                       Zmień nazwę
                     </button>
                   )}
                   <button
                     className="category-btn"
-                    onClick={() => deleteOutfit(outfit.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteOutfit(outfit.id);
+                    }}
                   >
                     Usuń
                   </button>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+      {selectedOutfit && (
+        <div className="modal-bg" onClick={() => setSelectedOutfit(null)}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <h2 className="modal-box-name">{selectedOutfit.name}</h2>
+
+            <div className="modal-images">
+              {selectedOutfit.items.map((item, i) => (
+                <img
+                  key={i}
+                  src={"images/" + item.zdjecie}
+                  alt={item.category}
+                  className="modal-img-large"
+                />
+              ))}
+            </div>
+
+            <button className="close-btn" onClick={() => setSelectedOutfit(null)}>
+              Zamknij
+            </button>
           </div>
         </div>
       )}

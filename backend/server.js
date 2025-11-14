@@ -157,37 +157,44 @@ app.get('/wardrobe', (req, res) => {
   });
   
 
-  app.get("/saved", (req, res) => {
-    const sql = `SELECT id_outfit, saved.nazwa AS outfit_name, top.zdjecie, bluzka.zdjecie, spodnie.zdjecie,buty.zdjecie,  akcesoria.zdjecie, torebka.zdjecie
+  app.get("/saved/:userId", (req, res) => {
+    const sql = `SELECT 
+                    saved.id_outfit, 
+                    saved.nazwa AS outfit_name, 
+                    top.zdjecie AS top_zdjecie, 
+                    bluzka.zdjecie AS bluzka_zdjecie, 
+                    spodnie.zdjecie AS spodnie_zdjecie,
+                    buty.zdjecie AS buty_zdjecie, 
+                    akcesoria.zdjecie AS akcesoria_zdjecie, 
+                    torebka.zdjecie AS torebka_zdjecie
                 FROM saved 
                 JOIN akcesoria ON saved.id_akcesoria = akcesoria.id_akcesoria
                 JOIN bluzka ON saved.id_bluzka = bluzka.id_bluzka
                 JOIN buty ON saved.id_buty = buty.id_buty
                 JOIN spodnie ON saved.id_spodnie = spodnie.id_spodnie
-                JOIN top ON saved.id_top =top.id_top
-                JOIN torebka ON saved.id_torebka = torebka.id_torebka;`;
+                JOIN top ON saved.id_top = top.id_top
+                JOIN torebka ON saved.id_torebka = torebka.id_torebka
+                WHERE saved.id_uzytkownika = ?;`;
+
     db.query(sql, (err, data) => {
-      if (err) return res.status(500).json(err);
-  
-      const grouped = {};
-      data.forEach((row) => {
-        if (!grouped[row.id_outfit]) {
-          grouped[row.id_outfit] = {
+        if (err) return res.status(500).json(err);
+
+        const outfits = data.map((row) => ({
             id: row.id_outfit,
             name: row.outfit_name,
-            items: [],
-          };
-        }
-        grouped[row.id_outfit].items.push({
-          category: row.category,
-          nazwa: row.nazwa,
-          opis: row.opis,
-          zdjecie: row.zdjecie,
-        });
-      });
-      res.json(Object.values(grouped));
+            items: [
+                { category: 'Top', zdjecie: row.top_zdjecie },
+                { category: 'Bluzka', zdjecie: row.bluzka_zdjecie },
+                { category: 'Spodnie', zdjecie: row.spodnie_zdjecie },
+                { category: 'Buty', zdjecie: row.buty_zdjecie },
+                { category: 'Akcesoria', zdjecie: row.akcesoria_zdjecie },
+                { category: 'Torebka', zdjecie: row.torebka_zdjecie },
+            ].filter(item => item.zdjecie)
+        }));
+
+        res.json(outfits);
     });
-  });
+});
 
 
 
@@ -214,3 +221,19 @@ app.get('/wardrobe', (req, res) => {
 app.listen(8081, () =>{
     console.log("dziala")
 })
+
+app.get("/user/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const sql = `
+      SELECT id_uzytkownika, imie, nazwisko, email, nazwa_uzytkownika, logo
+      FROM uzytkownicy
+      WHERE id_uzytkownika = ?`;
+
+  db.query(sql, [userId], (err, data) => {
+      if (err) return res.status(500).json(err);
+      if (data.length === 0) return res.status(404).json({ message: "Użytkownik nie istnieje" });
+
+      res.json(data[0]);
+  });
+});
