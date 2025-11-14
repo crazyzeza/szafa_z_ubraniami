@@ -4,7 +4,6 @@ import './App.css'
 import logoMartini from './assets/logoMartini.png'
 //Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 //npm install nodemon cors expressnp
-localStorage.setItem("userId", user.id_uzytkownika);
 
 function App() {
   const [email, setEmail] = useState("")
@@ -13,19 +12,29 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (email === "user1" && password === "123") {
-      navigate("/wardrobe")
-    } else {
-      alert("Nieprawidłowy email lub hasło")
-    }
-  }
-
-  useEffect(()=>{
-    fetch('http://localhost:8081/users')
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  },[])
+    fetch("http://localhost:8081/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const msg = await res.json();
+          alert(msg.message);
+          return;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (!data) return;
+        const user = data.user;
+        localStorage.setItem("userId", user.id_uzytkownika);
+        navigate("/wardrobe");
+      })
+      .catch((err) => {
+        console.error("Błąd logowania:", err);
+      });
+  };
 
   return (
     <div className="login-container">

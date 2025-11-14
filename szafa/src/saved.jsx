@@ -15,7 +15,8 @@ export default function Saved() {
   const [selectedOutfit, setSelectedOutfit] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8081/saved/${localStorage.getItem("userId")}`)
+    const userId = localStorage.getItem("userId");
+      fetch(`http://localhost:8081/saved/${userId}`)
       .then((res) => res.json())
       .then((data) => setSavedOutfits(data))
       .catch((err) => console.error("Błąd pobierania outfitów:", err));

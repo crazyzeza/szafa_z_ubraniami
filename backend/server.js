@@ -237,3 +237,31 @@ app.get("/user/:id", (req, res) => {
       res.json(data[0]);
   });
 });
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  const sql = `
+      SELECT id_uzytkownika, mail, haslo, imie, nazwisko, nazwa_uzytkownika 
+      FROM uzytkownicy 
+      WHERE mail = ?`;
+
+  db.query(sql, [email], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      if (data.length === 0) {
+          return res.status(401).json({ message: "Nieprawidłowy email" });
+      }
+
+      const user = data[0];
+
+      if (user.haslo !== password) {
+          return res.status(401).json({ message: "Błędne hasło" });
+      }
+
+      res.json({
+          message: "Zalogowano",
+          user
+      });
+  });
+});

@@ -12,7 +12,7 @@ import savedIkona from "./assets/savedIkona.png";
 export default function Account() {
 
   const [user, setUser] = useState(null);
-  const userId = localStorage.getItem("userId"); // <-- KLUCZOWE
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!userId) return;
