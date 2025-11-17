@@ -6,6 +6,19 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+function sendServerError(res, err) {
+  console.error(err)
+  return res.status(500).json({ message: err?.message ?? String(err) })
+}
+
+app.get('/users', (req, res)=>{
+    const sql = "SELECT id_uzytkownika, imie, nazwisko, email, haslo FROM uzytkownicy";
+    db.query(sql, (err, data)=>{
+        if(err) return sendServerError(res, err);
+        return res.json(data);
+    })
+})
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -242,9 +255,9 @@ app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
   const sql = `
-      SELECT id_uzytkownika, mail, haslo, imie, nazwisko, nazwa_uzytkownika 
+      SELECT id_uzytkownika, email, haslo, imie, nazwisko, nazwa_uzytkownika 
       FROM uzytkownicy 
-      WHERE mail = ?`;
+      WHERE email = ?`;
 
   db.query(sql, [email], (err, data) => {
       if (err) return res.status(500).json(err);

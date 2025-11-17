@@ -18,16 +18,27 @@ function App() {
       body: JSON.stringify({ email, password }),
     })
       .then(async (res) => {
+        let body = null;
+        try {
+          body = await res.json()
+        } catch (err) {
+          body = null;
+        }
         if (!res.ok) {
-          const msg = await res.json();
-          alert(msg.message);
+           const errMsg = body?.message ?? JSON.stringify(body) ?? "Błąd serwera"
+          alert(errMsg)
           return;
         }
         return res.json();
       })
       .then((data) => {
         if (!data) return;
-        const user = data.user;
+        console.log("Odpowiedź z /login:", data)
+        const user = data.user ?? data;
+        if (!user) {
+          alert("Brak danych użytkownika w odpowiedzi: " + JSON.stringify(data))
+          return
+        }
         localStorage.setItem("userId", user.id_uzytkownika);
         navigate("/wardrobe");
       })
