@@ -11,6 +11,12 @@ function sendServerError(res, err) {
   return res.status(500).json({ message: err?.message ?? String(err) })
 }
 
+
+const PORT = 8081;
+app.listen(PORT, () => {
+  console.log(`Serwer działa na porcie ${PORT}`);
+});
+
 app.get('/users', (req, res)=>{
     const sql = "SELECT id_uzytkownika, imie, nazwisko, email, haslo FROM uzytkownicy";
     db.query(sql, (err, data)=>{
@@ -171,6 +177,7 @@ app.get('/wardrobe', (req, res) => {
   
 
   app.get("/saved/:userId", (req, res) => {
+    const userId = req.params.userId;
     const sql = `SELECT 
                     saved.id_outfit, 
                     saved.nazwa AS outfit_name, 
@@ -189,24 +196,13 @@ app.get('/wardrobe', (req, res) => {
                 JOIN torebka ON saved.id_torebka = torebka.id_torebka
                 WHERE saved.id_uzytkownika = ?;`;
 
-    db.query(sql, (err, data) => {
-        if (err) return res.status(500).json(err);
-
-        const outfits = data.map((row) => ({
-            id: row.id_outfit,
-            name: row.outfit_name,
-            items: [
-                { category: 'Top', zdjecie: row.top_zdjecie },
-                { category: 'Bluzka', zdjecie: row.bluzka_zdjecie },
-                { category: 'Spodnie', zdjecie: row.spodnie_zdjecie },
-                { category: 'Buty', zdjecie: row.buty_zdjecie },
-                { category: 'Akcesoria', zdjecie: row.akcesoria_zdjecie },
-                { category: 'Torebka', zdjecie: row.torebka_zdjecie },
-            ].filter(item => item.zdjecie)
-        }));
-
-        res.json(outfits);
-    });
+    db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error("Błąd zapytania SQL:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+    res.json(results);
+  });
 });
 
 
@@ -231,9 +227,6 @@ app.get('/wardrobe', (req, res) => {
   });
 
 
-app.listen(8081, () =>{
-    console.log("dziala")
-})
 
 app.get("/user/:id", (req, res) => {
   const userId = req.params.id;

@@ -16,10 +16,23 @@ export default function Saved() {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
+    if (!userId) {
+      console.error("Brak userId w localStorage");
+      return;
+    }
       fetch(`http://localhost:8081/saved/${userId}`)
-      .then((res) => res.json())
-      .then((data) => setSavedOutfits(data))
-      .catch((err) => console.error("Błąd pobierania outfitów:", err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Błąd podczas pobierania zapisanych outfitów");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setSavedOutfits(data);
+      })
+      .catch((err) => {
+        console.error("Błąd:", err);
+      });
   }, []);
 
   const deleteOutfit = async (id) => {
@@ -28,6 +41,9 @@ export default function Saved() {
       const res = await fetch(`http://localhost:8081/delete/${id}`, {
         method: "DELETE",
       });
+      if (!res.ok) {
+        throw new Error("Błąd podczas usuwania outfitu");
+      }
       const result = await res.json();
       alert(result.message || "Outfit usunięty");
       setSavedOutfits(savedOutfits.filter((o) => o.id !== id));
@@ -48,6 +64,9 @@ export default function Saved() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newName }),
       });
+      if (!res.ok) {
+        throw new Error("Błąd podczas aktualizacji nazwy outfitu");
+      }
       const result = await res.json();
       if (result.message) {
         const updated = [...savedOutfits];
