@@ -3,76 +3,45 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'
 import logoMartini from './assets/logoMartini.png'
 //Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-//npm install nodemon cors expressnp
+//npm install nodemon cors express
 
 function App() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("handleSubmit wywołane, email:", email)
-    fetch("http://localhost:8081/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(async (res) => {
-        let body = null;
-        try {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("handleSubmit wywołane, email:", email);
+  
+    try {
       const res = await fetch("http://localhost:8081/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-      })
-
-      let body = null
-      try {
-        body = await res.json()
-      } catch (err) {
-        body = null
-      }
-
-      if (!res.ok) {
-        const errMsg = body?.message ?? JSON.stringify(body) ?? "Błąd serwera"
-        alert(errMsg)
-        return
-      }
-
-      if (!body) {
-        alert("Pusta odpowiedź serwera")
-        return
-      }
-
-      const user = body.user ?? body
-      if (!user) {
-        alert("Brak danych użytkownika w odpowiedzi: " + JSON.stringify(body))
-        return
-      }
-
-      localStorage.setItem("userId", user.id_uzytkownika)
-      navigate("/wardrobe")
-    } catch (err) {
-      console.error("Błąd logowania:", err)
-      alert("Błąd połączenia z serwerem: " + String(err))
-    }
-      })
-      .then((data) => {
-        if (!data) return;
-        console.log("Odpowiedź z /login:", data)
-        const user = data.user ?? data;
-        if (!user) {
-          alert("Brak danych użytkownika w odpowiedzi: " + JSON.stringify(data))
-          return
-        }
-        localStorage.setItem("userId", user.id_uzytkownika);
-        navigate("/wardrobe");
-      })
-      .catch((err) => {
-        console.error("Błąd logowania:", err);
-        alert("Błąd połączenia z serwerem: " + String(err));
       });
+  
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        const errMsg = body?.message ?? "Błąd serwera";
+        alert(errMsg);
+        return;
+      }
+  
+      const body = await res.json();
+      const user = body.user ?? body;
+  
+      if (!user) {
+        alert("Brak danych użytkownika w odpowiedzi: " + JSON.stringify(body));
+        return;
+      }
+  
+      localStorage.setItem("userId", user.id_uzytkownika);
+      navigate("/wardrobe");
+    } catch (err) {
+      console.error("Błąd logowania:", err);
+      alert("Błąd połączenia z serwerem: " + String(err));
+    }
   };
 
   return (
