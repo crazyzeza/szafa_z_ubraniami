@@ -28,7 +28,19 @@ export default function Saved() {
         return res.json();
       })
       .then((data) => {
-        setSavedOutfits(data);
+        const transformedData = data.map((outfit) => ({
+          id_outfit: outfit.id_outfit,
+          name: outfit.outfit_name,
+          items: [
+            { category: "Top", zdjecie: outfit.top_zdjecie },
+            { category: "Bluzka", zdjecie: outfit.bluzka_zdjecie },
+            { category: "Spodnie", zdjecie: outfit.spodnie_zdjecie },
+            { category: "Buty", zdjecie: outfit.buty_zdjecie },
+            { category: "Akcesoria", zdjecie: outfit.akcesoria_zdjecie },
+            { category: "Torebka", zdjecie: outfit.torebka_zdjecie },
+          ],
+        }));
+        setSavedOutfits(transformedData);
       })
       .catch((err) => {
         console.error("Błąd:", err);
@@ -46,7 +58,7 @@ export default function Saved() {
       }
       const result = await res.json();
       alert(result.message || "Outfit usunięty");
-      setSavedOutfits(savedOutfits.filter((o) => o.id !== id));
+      setSavedOutfits(savedOutfits.filter((o) => o.id_outfit !== id));
     } catch (error) {
       console.error("Błąd usuwania outfitu:", error);
     }
@@ -70,7 +82,7 @@ export default function Saved() {
       const result = await res.json();
       if (result.message) {
         const updated = [...savedOutfits];
-        updated[index].name = newName;
+        updated[index].outfit_name = newName;
         setSavedOutfits(updated);
         setEditingIndex(null);
         setNewName("");
@@ -120,7 +132,7 @@ export default function Saved() {
           <div className="saved-horizontal">
             {savedOutfits.map((outfit, i) => (
               <div
-                key={outfit.id}
+                key={outfit.id_outfit}
                 className="wardrobe-card"
                 onClick={() => setSelectedOutfit(outfit)}
                 style={{ cursor: "pointer" }}
@@ -174,7 +186,7 @@ export default function Saved() {
                     className="category-btn"
                     onClick={(e) => {
                       e.stopPropagation();
-                      deleteOutfit(outfit.id);
+                      deleteOutfit(outfit.id_outfit);
                     }}
                   >
                     Usuń
