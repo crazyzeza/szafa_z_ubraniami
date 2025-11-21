@@ -205,8 +205,6 @@ app.get('/wardrobe', (req, res) => {
   });
 });
 
-
-
   app.delete("/delete/:id", (req, res) => {
     const { id } = req.params;
     const deleteOutfit = "DELETE FROM saved WHERE id_outfit = ?";
@@ -226,23 +224,43 @@ app.get('/wardrobe', (req, res) => {
     });
   });
 
-
-
-app.get("/user/:id", (req, res) => {
-  const userId = req.params.id;
-
+app.get("/user/:userId", (req, res) => {
+  const userId = req.params.userId;
   const sql = `
       SELECT id_uzytkownika, imie, nazwisko, email, nazwa_uzytkownika, logo
       FROM uzytkownicy
       WHERE id_uzytkownika = ?`;
 
   db.query(sql, [userId], (err, data) => {
-      if (err) return res.status(500).json(err);
+      if (err) {
+        console.error("Blad zapytania  SQL: ", err)
+        return res.status(500).json(err);}
       if (data.length === 0) return res.status(404).json({ message: "Użytkownik nie istnieje" });
 
       res.json(data[0]);
   });
 });
+
+app.post("/user/update/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const { imie, nazwisko, email, nazwa_uzytkownika, logo } = req.body;
+
+  const sql = `
+    UPDATE uzytkownicy
+    SET imie=?, nazwisko=?, email=?, nazwa_uzytkownika=?, logo=?
+    WHERE id_uzytkownika=?
+  `;
+
+  db.query(sql, [imie, nazwisko, email, nazwa_uzytkownika, logo, userId], (err) => {
+    if (err) {
+      console.error("Błąd aktualizacji:", err);
+      return res.status(500).json(err);
+    }
+    res.json({ message: "Dane zaktualizowane pomyślnie" });
+  });
+});
+
+
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
