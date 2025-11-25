@@ -72,7 +72,7 @@ export default function Saved() {
   const saveNameChange = async (id, index) => {
     try {
       const res = await fetch(`http://localhost:8081/update_name/${id}`, {
-        method: "PUT",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newName }),
       });

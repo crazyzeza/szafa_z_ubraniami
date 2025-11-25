@@ -214,10 +214,10 @@ app.get('/wardrobe', (req, res) => {
       });
   });
   
-  app.put("/update_name/:id", (req, res) => {
-    const { id } = req.params;
+  app.post("/update_name/:id", (req, res) => {
     const { newName } = req.body;
-    const sql = "UPDATE saved SET nazwa = ? WHERE id_outfit = ?";
+    const { id } = req.params;
+    const sql = 'UPDATE saved SET nazwa="?" WHERE id_outfit = ?';
     db.query(sql, [newName, id], (err) => {
       if (err) return res.status(500).json(err);
       res.json({ message: "Nazwa outfitu zaktualizowana" });
